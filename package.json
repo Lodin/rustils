@@ -1,0 +1,29 @@
+{
+  "name": "rust-types",
+  "version": "1.0.0-alpha.0",
+  "description": "Port of some powerful Rust utils to JavaScript",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lodin/rust-types.git"
+  },
+  "keywords": [
+    "rust",
+    "types",
+    "result",
+    "option",
+    "iterator"
+  ],
+  "author": "Vlad Rindevich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lodin/rust-types/issues"
+  },
+  "homepage": "https://github.com/Lodin/rust-types#readme",
+  "devDependencies": {
+    "typescript": "^2.2.0-dev.20170126"
+  }
+}

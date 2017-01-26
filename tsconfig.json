@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": "",
+    "declaration": true,
+    "lib": ["es6", "dom"],
+    "mapRoot": "./src",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noEmitHelpers": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "outDir": "./src/modules/result/dist",
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es2015",
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
+  }
+}
