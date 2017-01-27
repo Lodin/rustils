@@ -86,21 +86,21 @@ describe('Class `Option`', () => {
 
   describe('mapOr', () => {
     it('should map value in accordance with callback if the Option is Some', () => {
-      expect(some.mapOr(1, v => v + 20)).to.be.deep.eq(Some(40));
+      expect(some.mapOr(1, v => v + 20)).to.be.eq(40);
     });
 
     it('should get default value if the Option is None', () => {
-      expect(none.mapOr(1, v => v + 20)).to.be.deep.eq(1);
+      expect(none.mapOr(1, v => v + 20)).to.be.eq(1);
     });
   });
 
   describe('mapOrElse', () => {
     it('should map value in accordance with callback if the Option is Some', () => {
-      expect(some.mapOrElse(() => 1, v => v + 20)).to.be.deep.eq(Some(40));
+      expect(some.mapOrElse(() => 1, v => v + 20)).to.be.eq(40);
     });
 
     it('should get default value if the Option is None', () => {
-      expect(none.mapOrElse(() => 1, v => v + 20)).to.be.deep.eq(1);
+      expect(none.mapOrElse(() => 1, v => v + 20)).to.be.eq(1);
     });
   });
 });
