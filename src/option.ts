@@ -10,7 +10,7 @@ export const Some = <T>(value: T) => new Option(value);
 export const None = () => new Option(null);
 
 export class Option<T> implements Match<OptionMatcher<T>> {
-  constructor(protected value?: T|null) {}
+  constructor(protected value: T) {}
 
   public get isSome(): boolean {
     return !!this.value;
@@ -22,7 +22,7 @@ export class Option<T> implements Match<OptionMatcher<T>> {
 
   public expect(str: string): T {
     if (this.isSome) {
-      return <T>this.value;
+      return this.value;
     }
 
     throw new Error(str);
@@ -30,7 +30,7 @@ export class Option<T> implements Match<OptionMatcher<T>> {
 
   public unwrap(): T {
     if (this.isSome) {
-      return <T>this.value;
+      return this.value;
     }
 
     throw new Error();
@@ -38,71 +38,71 @@ export class Option<T> implements Match<OptionMatcher<T>> {
 
   public unwrapOr(def: T): T {
     return this.isSome
-      ? <T>this.value
+      ? this.value
       : def;
   }
 
   public unwrapOrElse(cb: () => T): T {
     return this.isSome
-      ? <T>this.value
+      ? this.value
       : cb();
   }
 
-  public map<U>(cb: (value: T) => U): Option<U|null> {
+  public map<U>(cb: (value: T) => U): Option<U> {
     return this.isSome
-      ? Some(cb(<T>this.value))
-      : <Option<null>><any>this; // None()
+      ? Some(cb(this.value))
+      : <Option<U>><any>this; // None()
   }
 
   public mapOr<U>(def: U, cb: (value: T) => U): U {
     return this.isSome
-      ? cb(<T>this.value)
+      ? cb(this.value)
       : def;
   }
 
   public mapOrElse<U>(def: () => U, cb: (value: T) => U): U {
     return this.isSome
-      ? cb(<T>this.value)
+      ? cb(this.value)
       : def();
   }
 
   public match<U>(matcher: OptionMatcher<T>): U {
     return this.isSome
-      ? <U>matcher.Some(<T>this.value)
+      ? <U>matcher.Some(this.value)
       : <U>matcher.None();
   }
 
-  public okOr<E>(err: E): Result<T|null, E|null> {
+  public okOr<E>(err: E): Result<T, E> {
     return this.isSome
-      ? Ok(<T>this.value)
+      ? Ok(this.value)
       : Err(err);
   }
 
-  public okOrElse<E>(err: () => E): Result<T|null, E|null> {
+  public okOrElse<E>(err: () => E): Result<T, E> {
     return this.isSome
-      ? Ok(<T>this.value)
+      ? Ok(this.value)
       : Err(err());
   }
 
-  public and<U>(optb: Option<U|null>): Option<U|null> {
+  public and<U>(optb: Option<U>): Option<U> {
     return this.isSome
       ? optb
-      : <Option<null>><any>this; // None()
+      : <Option<U>><any>this; // None()
   }
 
-  public andThen<U>(cb: (value: T) => U): Option<U|null> {
+  public andThen<U>(cb: (value: T) => U): Option<U> {
     return this.isSome
-      ? Some(cb(<T>this.value))
-      : <Option<null>><any>this; // None()
+      ? Some(cb(this.value))
+      : <Option<U>><any>this; // None()
   }
 
-  public or(optb: Option<T|null>): Option<T|null> {
+  public or(optb: Option<T>): Option<T> {
     return this.isSome
       ? this
       : optb;
   }
 
-  public orElse(cb: () => Option<T|null>): Option<T|null> {
+  public orElse(cb: () => Option<T>): Option<T> {
     return this.isSome
       ? this
       : cb();

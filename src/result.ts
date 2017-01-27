@@ -10,15 +10,15 @@ export const Ok = <T>(value: T) => new Result(value, null);
 export const Err = <E>(value: E) => new Result(null, value);
 
 export class Result<T, E> implements Match<ResultMatcher<T, E>> {
-  public constructor(protected value: T|null, protected error: E|null) {}
+  public constructor(protected value: T, protected error: E) {}
 
-  public get ok(): Option<T|null> {
+  public get ok(): Option<T> {
     return this.isOk
       ? Some(this.value)
       : None();
   }
 
-  public get err(): Option<E|null> {
+  public get err(): Option<E> {
     return this.isErr
       ? Some(this.error)
       : None();
@@ -32,63 +32,63 @@ export class Result<T, E> implements Match<ResultMatcher<T, E>> {
     return !!this.error;
   }
 
-  public map<U>(cb: (value: T) => U): Result<U|null, E|null> {
+  public map<U>(cb: (value: T) => U): Result<U, E> {
     return this.isOk
-      ? Ok(cb(<T>this.value))
-      : <Result<null, E>><any>this; // Err(this.error)
+      ? Ok(cb(this.value))
+      : <Result<U, E>><any>this; // Err(this.error)
   }
 
-  public mapErr<F>(cb: (error: E) => F): Result<T|null, F|null> {
+  public mapErr<F>(cb: (error: E) => F): Result<T, F> {
     return this.isErr
-      ? <Result<T, null>><any>this // Ok(this.value)
-      : Err(cb(<E>this.error));
+      ? <Result<T, F>><any>this // Ok(this.value)
+      : Err(cb(this.error));
   }
 
   public match<U>(matcher: ResultMatcher<T, E>): U {
     return this.isOk
-      ? <U>matcher.Ok(<T>this.value)
-      : <U>matcher.Err(<E>this.error);
+      ? <U>matcher.Ok(this.value)
+      : <U>matcher.Err(this.error);
   }
 
-  public and<U>(res: Result<U, E>): Result<U|null, E|null> {
+  public and<U>(res: Result<U, E>): Result<U, E> {
     return this.isOk
       ? res
-      : <Result<null, E>><any>this; // Err(this.error)
+      : <Result<U, E>><any>this; // Err(this.error)
   }
 
-  public andThen<U>(cb: (value: T) => Result<U|null, E|null>): Result<U|null, E|null> {
+  public andThen<U>(cb: (value: T) => Result<U, E>): Result<U, E> {
     return this.isOk
-      ? cb(<T>this.value)
-      : <Result<null, E>><any>this;
+      ? cb(this.value)
+      : <Result<U, E>><any>this;
   }
 
-  public or<F>(res: Result<T|null, F|null>): Result<T|null, F|null> {
+  public or<F>(res: Result<T, F>): Result<T, F> {
     return this.isOk
-      ? <Result<T|null, F|null>><any>this
+      ? <Result<T, F>><any>this
       : res;
   }
 
-  public orElse<F>(cb: (error: E) => Result<T|null, F|null>): Result<T|null, F|null> {
+  public orElse<F>(cb: (error: E) => Result<T, F>): Result<T, F> {
     return this.isOk
-      ? <Result<T|null, F|null>><any>this
+      ? <Result<T, F>><any>this
       : cb(<E>this.error);
   }
 
   public unwrapOr(optb: T): T {
     return this.isOk
-      ? <T>this.value
+      ? this.value
       : optb;
   }
 
   public unwrapOrElse(cb: (error: E) => T) {
     return this.isOk
-      ? <T>this.value
-      : cb(<E>this.error);
+      ? this.value
+      : cb(this.error);
   }
 
   public unwrap(): T {
     if (this.isOk) {
-      return <T>this.value;
+      return this.value;
     }
 
     throw this.error;
@@ -96,7 +96,7 @@ export class Result<T, E> implements Match<ResultMatcher<T, E>> {
 
   public unwrapErr(): E {
     if (this.isErr) {
-      return <E>this.error;
+      return this.error;
     }
 
     throw this.value;
@@ -104,9 +104,9 @@ export class Result<T, E> implements Match<ResultMatcher<T, E>> {
 
   public expect(msg: string): T {
     if (this.isOk) {
-      return <T>this.value;
+      return this.value;
     }
 
-    throw new Error(`${msg}: ${(<E>this.error).toString()}`)
+    throw new Error(`${msg}: ${this.error.toString()}`)
   }
 }

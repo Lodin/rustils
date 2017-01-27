@@ -11,7 +11,6 @@
     "noImplicitThis": true,
     "outDir": "./dist",
     "sourceMap": true,
-    "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es2015",
     "typeRoots": [
