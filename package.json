@@ -1,7 +1,7 @@
 {
-  "name": "rust-types",
+  "name": "rustils",
   "version": "1.0.0-alpha.0",
-  "description": "Port of some powerful Rust utils to JavaScript",
+  "description": "Port of powerful Rust utils to JavaScript",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,8 +14,7 @@
     "rust",
     "types",
     "result",
-    "option",
-    "iterator"
+    "option"
   ],
   "author": "Vlad Rindevich",
   "license": "MIT",
