@@ -4,7 +4,8 @@
   "description": "Port of powerful Rust utils to JavaScript",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env TS_NODE_CACHE_DIRECTORY=./.cache/ts-node nyc --require ts-node/register ./node_modules/.bin/_mocha",
+    "nyc": "nyc --help"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,34 @@
   },
   "homepage": "https://github.com/Lodin/rust-types#readme",
   "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/mocha": "^2.2.38",
+    "chai": "^3.5.0",
+    "cross-env": "^3.1.4",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
+    "ts-node": "^2.0.0",
     "typescript": "^2.2.0-dev.20170126"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules/",
+      "dist/",
+      "src/**/*.spec.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   }
 }
