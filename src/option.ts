@@ -23,17 +23,17 @@ export class Option<T> implements Match<OptionMatcher<T>> {
   public expect(str: string): T {
     if (this.isSome) {
       return <T>this.value;
-    } else {
-      throw new Error(str);
     }
+
+    throw new Error(str);
   }
 
   public unwrap(): T {
     if (this.isSome) {
       return <T>this.value;
-    } else {
-      throw new Error();
     }
+
+    throw new Error();
   }
 
   public unwrapOr(def: T): T {
@@ -51,7 +51,7 @@ export class Option<T> implements Match<OptionMatcher<T>> {
   public map<U>(cb: (value: T) => U): Option<U|null> {
     return this.isSome
       ? Some(cb(<T>this.value))
-      : <Option<null>><any>this;
+      : <Option<null>><any>this; // None()
   }
 
   public mapOr<U>(def: U, cb: (value: T) => U): U {
@@ -84,9 +84,27 @@ export class Option<T> implements Match<OptionMatcher<T>> {
       : Err(err());
   }
 
-  public and<U>(optb: Option<U>): Option<U|null> {
+  public and<U>(optb: Option<U|null>): Option<U|null> {
     return this.isSome
       ? optb
-      : <Option<null>><any>this;
+      : <Option<null>><any>this; // None()
+  }
+
+  public andThen<U>(cb: (value: T) => U): Option<U|null> {
+    return this.isSome
+      ? Some(cb(<T>this.value))
+      : <Option<null>><any>this; // None()
+  }
+
+  public or(optb: Option<T|null>): Option<T|null> {
+    return this.isSome
+      ? this
+      : optb;
+  }
+
+  public orElse(cb: () => Option<T|null>): Option<T|null> {
+    return this.isSome
+      ? this
+      : cb();
   }
 }
