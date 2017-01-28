@@ -1,15 +1,15 @@
 import {Some, None, Option} from './option';
 import {Match} from './match';
 
-export type ResultMatcher<T, E> = {
-  Ok: <A>(value: T) => A,
-  Err: <B>(err: E) => B
+export type ResultMatcher<T, E, U> = {
+  Ok: (value: T) => U,
+  Err: (err: E) => U
 };
 
-export const Ok = <T>(value: T) => new Result(value, null);
-export const Err = <E>(value: E) => new Result(null, value);
+export const Ok = <T>(value: T) => new Result<T, any>(value, null);
+export const Err = <E>(value: E) => new Result<any, E>(null, value);
 
-export class Result<T, E> implements Match<ResultMatcher<T, E>> {
+export class Result<T, E> implements Match {
   public constructor(protected value: T, protected error: E) {}
 
   public get ok(): Option<T> {
@@ -25,7 +25,7 @@ export class Result<T, E> implements Match<ResultMatcher<T, E>> {
   }
 
   public get isOk(): boolean {
-    return !!this.ok;
+    return !!this.value;
   }
 
   public get isErr(): boolean {
@@ -44,10 +44,10 @@ export class Result<T, E> implements Match<ResultMatcher<T, E>> {
       : Err(cb(this.error));
   }
 
-  public match<U>(matcher: ResultMatcher<T, E>): U {
+  public match<U>(matcher: ResultMatcher<T, E, U>): U {
     return this.isOk
-      ? <U>matcher.Ok(this.value)
-      : <U>matcher.Err(this.error);
+      ? matcher.Ok(this.value)
+      : matcher.Err(this.error);
   }
 
   public and<U>(res: Result<U, E>): Result<U, E> {

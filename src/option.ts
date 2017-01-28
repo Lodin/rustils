@@ -1,15 +1,15 @@
 import {Match} from './match';
 import {Result, Ok, Err} from './result';
 
-export type OptionMatcher<T> = {
-  Some: <A>(value: T) => A,
-  None: <B>() => B
+export type OptionMatcher<T, U> = {
+  Some: (arg: T) => U,
+  None: () => U
 };
 
-export const Some = <T>(value: T) => new Option(value);
-export const None = () => new Option(null);
+export const Some = <T>(value: T) => new Option<T>(value);
+export const None = () => new Option<any>(null);
 
-export class Option<T> implements Match<OptionMatcher<T>> {
+export class Option<T> implements Match {
   constructor(protected value: T) {}
 
   public get isSome(): boolean {
@@ -66,10 +66,10 @@ export class Option<T> implements Match<OptionMatcher<T>> {
       : def();
   }
 
-  public match<U>(matcher: OptionMatcher<T>): U {
+  public match<U>(matcher: OptionMatcher<T, U>): U {
     return this.isSome
-      ? <U>matcher.Some(this.value)
-      : <U>matcher.None();
+      ? matcher.Some(this.value)
+      : matcher.None();
   }
 
   public okOr<E>(err: E): Result<T, E> {

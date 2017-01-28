@@ -1,3 +1,3 @@
-export interface Match<T> {
-  match<U>(matcher: T): U;
+export interface Match {
+  match<T extends {}, U>(matcher: T): U;
 }
