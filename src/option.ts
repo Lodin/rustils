@@ -90,9 +90,9 @@ export class Option<T> implements Match {
       : <Option<U>><any>this; // None()
   }
 
-  public andThen<U>(cb: (value: T) => U): Option<U> {
+  public andThen<U>(cb: (value: T) => Option<U>): Option<U> {
     return this.isSome
-      ? Some(cb(this.value))
+      ? cb(this.value)
       : <Option<U>><any>this; // None()
   }
 

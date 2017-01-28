@@ -2,19 +2,19 @@ import {expect} from 'chai';
 import {Some, None, Option} from './option';
 import {Ok, Err} from './result';
 
-describe('Function `Some`', () => {
+describe('Function "Some"', () => {
   it('should create Option with value', () => {
     expect((<any>Some('some string')).value).to.be.eq('some string');
   });
 });
 
-describe('Function `None`', () => {
+describe('Function "None"', () => {
   it('should create Option without value', () => {
     expect((<any>None()).value).to.be.null;
   });
 });
 
-describe('Class `Option`', () => {
+describe('Class "Option"', () => {
   let some: Option<number>;
   let none: Option<number>;
 
@@ -36,7 +36,7 @@ describe('Class `Option`', () => {
   });
 
   describe('expect', () => {
-    it('should get the value the Option is Some', () => {
+    it('should get the value if the Option is Some', () => {
       expect(some.expect('value should be set')).to.be.eq(20);
     });
 
@@ -70,7 +70,7 @@ describe('Class `Option`', () => {
       expect(some.unwrapOrElse(() => 10)).to.be.eq(20);
     });
 
-    it('should process and return value if the Option is None', () => {
+    it('should get calculated value if the Option is None', () => {
       expect(none.unwrapOrElse(() => 10)).to.be.eq(10);
     });
   });
@@ -153,11 +153,11 @@ describe('Class `Option`', () => {
 
   describe('andThen', () => {
     it('should get wrapped result of the callback if the Option is Some', () => {
-      expect(some.andThen(v => v + 10)).to.be.deep.eq(Some(30));
+      expect(some.andThen(v => Some(v + 10))).to.be.deep.eq(Some(30));
     });
 
     it('should get None if the Option is None', () => {
-      expect(none.andThen(v => v + 10)).to.be.deep.eq(None());
+      expect(none.andThen(v => Some(v + 10))).to.be.deep.eq(None());
     });
   });
 

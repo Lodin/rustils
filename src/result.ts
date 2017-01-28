@@ -39,7 +39,7 @@ export class Result<T, E> implements Match {
   }
 
   public mapErr<F>(cb: (error: E) => F): Result<T, F> {
-    return this.isErr
+    return this.isOk
       ? <Result<T, F>><any>this // Ok(this.value)
       : Err(cb(this.error));
   }
@@ -91,7 +91,7 @@ export class Result<T, E> implements Match {
       return this.value;
     }
 
-    throw this.error;
+    throw new Error(this.error.toString());
   }
 
   public unwrapErr(): E {
@@ -99,7 +99,7 @@ export class Result<T, E> implements Match {
       return this.error;
     }
 
-    throw this.value;
+    throw new Error(this.value.toString());
   }
 
   public expect(msg: string): T {
