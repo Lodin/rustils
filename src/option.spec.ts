@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import {Some, None, Option} from './option';
+import {Ok, Err} from './result';
 
 describe('Function `Some`', () => {
   it('should create Option with value', () => {
@@ -59,7 +60,7 @@ describe('Class `Option`', () => {
       expect(some.unwrapOr(10)).to.be.eq(20);
     });
 
-    it('should get `or` value if the Option is None', () => {
+    it('should get received value if the Option is None', () => {
       expect(none.unwrapOr(10)).to.be.eq(10);
     });
   });
@@ -89,7 +90,7 @@ describe('Class `Option`', () => {
       expect(some.mapOr(1, v => v + 20)).to.be.eq(40);
     });
 
-    it('should get default value if the Option is None', () => {
+    it('should get received value if the Option is None', () => {
       expect(none.mapOr(1, v => v + 20)).to.be.eq(1);
     });
   });
@@ -99,8 +100,84 @@ describe('Class `Option`', () => {
       expect(some.mapOrElse(() => 1, v => v + 20)).to.be.eq(40);
     });
 
-    it('should get default value if the Option is None', () => {
+    it('should get calculated value if the Option is None', () => {
       expect(none.mapOrElse(() => 1, v => v + 20)).to.be.eq(1);
+    });
+  });
+
+  describe('match', () => {
+    it('should match Some expression by type', () => {
+      expect(some.match({
+        Some: v => v + 10,
+        None: () => 12
+      })).to.be.eq(30);
+    });
+
+    it('should match None expression by type', () => {
+      expect(none.match({
+        Some: v => v + 10,
+        None: () => 10
+      })).to.be.eq(10)
+    });
+  });
+
+  describe('okOr', () => {
+    it('should get Ok of Result with the value if the Option is Some', () => {
+      expect(some.okOr('error')).to.be.deep.eq(Ok(20));
+    });
+
+    it('should get Err of Result with received value if the Option is None', () => {
+      expect(none.okOr('error')).to.be.deep.eq(Err('error'));
+    });
+  });
+
+  describe('okOrElse', () => {
+    it('should get Ok of Result if the Option is Some', () => {
+      expect(some.okOrElse(() => 'error')).to.be.deep.eq(Ok(20));
+    });
+
+    it('should get Err of Result with received value if the Option is None', () => {
+      expect(none.okOrElse(() => 'error')).to.be.deep.eq(Err('error'));
+    });
+  });
+
+  describe('and', () => {
+    it('should get received Option if the Option is Some', () => {
+      expect(some.and(Some('str'))).to.be.deep.eq(Some('str'));
+    });
+
+    it('should get a None if the Option is None', () => {
+      expect(none.and(Some('str'))).to.be.deep.eq(None());
+    });
+  });
+
+  describe('andThen', () => {
+    it('should get wrapped result of the callback if the Option is Some', () => {
+      expect(some.andThen(v => v + 10)).to.be.deep.eq(Some(30));
+    });
+
+    it('should get None if the Option is None', () => {
+      expect(none.andThen(v => v + 10)).to.be.deep.eq(None());
+    });
+  });
+
+  describe('or', () => {
+    it('should get the Option itself if the Option is Some', () => {
+      expect(some.or(Some(50))).to.be.eq(some);
+    });
+
+    it('should get received Option if the Option is None', () => {
+      expect(none.or(Some(50))).to.be.deep.eq(Some(50));
+    });
+  });
+
+  describe('orElse', () => {
+    it('should get the Option itself if the Option is Some', () => {
+      expect(some.orElse(() => Some(50))).to.be.eq(some);
+    });
+
+    it('should get calculated Option if the Option is None', () => {
+      expect(none.orElse(() => Some(50))).to.be.deep.eq(Some(50));
     });
   });
 });
