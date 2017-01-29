@@ -1,0 +1,12 @@
+{
+  "mode": "modules",
+  "out": "docs",
+  "theme": "node_modules/ui-router-typedoc-themes/bin/default",
+  "ignoreCompilerErrors": "true",
+  "target": "ES5",
+  "moduleResolution": "node",
+  "stripInternal": "true",
+  "suppressExcessPropertyErrors": "true",
+  "suppressImplicitAnyIndexErrors": "true",
+  "module": "commonjs"
+}

@@ -10,6 +10,9 @@ node_modules
 coverage
 .nyc_output
 
+# documentation
+docs
+
 # production
 dist
 
