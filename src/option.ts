@@ -3,8 +3,68 @@
  * a value, or [[None]], and does not. It can be a useful substitute for `null` due to it's
  * functional nature that brings less errors and needs less checks.
  *
- * [[Option]]s are commonly paired with pattern matching to query the presence of a value and take
- * action, always accounting for the [[None]] case.
+ * ```ts
+ * function divide(numerator: number, denominator: number) => Option<number> {
+ *   return denominator == 0.0
+ *    ? None()
+ *    : Some(numerator / denominator);
+ * }
+ *
+ * // The return value of the function is an option
+ * const result = divide(2.0, 3.0);
+ *
+ * // Pattern match to retrieve the value
+ * result.match({
+ *   // The division was valid
+ *   Some: x => console.log('Result: ', x),
+ *   // The division was invalid
+ *   None: () => console.log('Cannot divide by 0'),
+ * });
+ * ```
+ * #### Examples
+ * Basic pattern matching on [[Option]]:
+ *
+ * ```ts
+ * const msg = Some('howdy');
+ *
+ * // Get the value contained by option
+ * const unwrappedMsg = msg.unwrapOr('default message');
+ * ```
+ * Initialize a result to [[None]] before a loop:
+ *
+ * ```ts
+ * type Kingdom = {type: 'Plant'|'Animal', size: number, name: string};
+ *
+ * const allTheBigThings: [Kingdom] = [
+ *   {type: 'Plant', size: 250, name: 'redwood'},
+ *   {type: 'Plant', size: 230, name: 'noble fir'},
+ *   {type: 'Plant', size: 229, name: 'sugar pine'},
+ *   {type: 'Animal', size: 25, name: 'blue whale'},
+ *   {type: 'Animal', size: 19, name: 'fin whale'},
+ *   {type: 'Animal', size: 15, name: 'north pacific right whale'}
+ * ];
+ *
+ * // We're going to search for the name of the biggest animal,
+ * // but to start with we've just got `None`.
+ * let nameOfBiggestAnimal: Option<string> = None();
+ * let sizeOfBiggestAnimal = 0;
+ *
+ * for (const {type, size, name} of allTheBigThings) {
+ *    if (type === 'Plant') {
+ *      continue;
+ *    }
+ *
+ *    if (size > sizeOfBiggestAnimal) {
+ *      sizeOfBiggestAnimal = size;
+ *      nameOfBiggestAnimal = Some(name);
+ *    }
+ * }
+ *
+ * nameOfBiggestAnimal.match({
+ *   Some: name => console.log(`the biggest animal is ${name}`);
+ *   None: () => console.log('there are no animals :(');
+ * });
+ * ```
  */ /** for typedoc */
 
 import {Match} from './match';
@@ -21,26 +81,28 @@ export type OptionMatcher<T, U> = {
 };
 
 /**
- * Creates an [[Option]] contains some value.
+ * Creates an [[Option]] containing some value.
  *
- * #### Example
+ * #### Examples
+ * Basic usage:
  * ```ts
  * const x = Some(15);
  * assert(x instanceof Option);
  * assert.equal(x.unwrap(), 15);
  * ```
- * @param value a value Options will wrap over.
+ * @param value a value [[Option]] will wrap over.
  * @constructor
  */
 export const Some = <T>(value: T) => new Option<T>(value);
 
 /**
- * Creates an [[Option]] contains no value.
+ * Creates an [[Option]] containing no value.
  *
- * **Note:** if you want strong typing define the `Option` type for variable the `Option` will be
- * assigned, otherwise it will be `Option<any>`.
+ * **Note:** if you want strong typing define the [[Option]] type for variable the [[Option]] will
+ * be assigned, otherwise it will be `Option<any>`.
  *
- * #### Example
+ * #### Examples
+ * Basic usage:
  * ```ts
  * const x: Option<number> = None();
  * assert(x instanceof Option);
@@ -49,19 +111,23 @@ export const Some = <T>(value: T) => new Option<T>(value);
  */
 export const None = () => new Option<any>(null);
 
+/**
+ * The `Option` type. See the [["option"]] module documentation for more.
+ */
 export class Option<T> implements Match {
   constructor(protected value: T) {}
 
   /**
    * Gets `true` if the option is a `Some` value.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * const x: Option<number> = Some(2);
    * assert.equal(x.isSome, true);
    *
-   * const x: Option<number> = None();
-   * assert.equal(x.isSome, false);
+   * const y: Option<number> = None();
+   * assert.equal(y.isSome, false);
    * ```
    */
   public get isSome(): boolean {
@@ -71,13 +137,14 @@ export class Option<T> implements Match {
   /**
    * Gets `true` if the option is a `None` value.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * const x: Option<number> = Some(2);
    * assert.equal(x.isNone, false);
    *
-   * const x: Option<number> = None;
-   * assert.equal(x.isNone, true);
+   * const y: Option<number> = None();
+   * assert.equal(y.isNone, true);
    * ```
    */
   public get isNone(): boolean {
@@ -87,13 +154,14 @@ export class Option<T> implements Match {
   /**
    * Unwraps an option, yielding the content of a `Some`.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * const x = Some('value');
    * assert.equal(x.expect('the world is ending'), 'value');
    *
-   * const x: Option<string> = None;
-   * x.expect('the world is ending'); // throws an error with `the world is ending`
+   * const y: Option<string> = None();
+   * y.expect('the world is ending'); // throws an error with `the world is ending`
    * ```
    *
    * #### Throws
@@ -115,13 +183,14 @@ export class Option<T> implements Match {
    * In general, because this function may throw, its use is discouraged. Instead, prefer to
    * use [[Option.match]] and handle the `None` case explicitly.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * const x = Some('air');
    * assert.equal(x.unwrap(), 'air');
    *
-   * const x: Option<string> = None;
-   * assert.equal(x.unwrap(), 'air'); // fails
+   * const y: Option<string> = None();
+   * assert.equal(y.unwrap(), 'air'); // fails
    * ```
    *
    * #### Throws
@@ -138,7 +207,8 @@ export class Option<T> implements Match {
   /**
    * Returns the contained value or a default.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * assert.equal(Some('car').unwrapOr('bike'), 'car');
    * assert.equal(None().unwrapOr('bike'), 'bike');
@@ -155,7 +225,8 @@ export class Option<T> implements Match {
   /**
    * Returns the contained value or computes it from a closure.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * const k = 10;
    * assert.equal(Some(4).unwrapOrElse(() => 2 * k), 4);
@@ -173,7 +244,8 @@ export class Option<T> implements Match {
   /**
    * Maps an `Option<T>` to `Option<U>` by applying a function to a contained value.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * Convert an `Option<string>` into an `Option<number>`, consuming the original:
    * ```ts
    * const maybeSomeString = Some('Hello, World!');
@@ -193,13 +265,14 @@ export class Option<T> implements Match {
   /**
    * Applies a function to the contained value (if any), or returns a `def` (if not).
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * const x = Some('foo');
    * assert.equal(x.mapOr(42, v => v.length), 3);
    *
-   * const x: Option<string> = None;
-   * assert.equal(x.mapOr(42, v => v.length), 42);
+   * const y: Option<string> = None();
+   * assert.equal(y.mapOr(42, v => v.length), 42);
    * ```
    *
    * @param def default value
@@ -214,15 +287,16 @@ export class Option<T> implements Match {
   /**
    * Applies a function to the contained value (if any), or computes a `def` (if not).
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * const k = 21;
    *
    * const x = Some('foo');
    * assert.equal(x.mapOrElse(() => 2 * k, v => v.length), 3);
    *
-   * const x: Option<string> = None;
-   * assert.equal(x.mapOrElse(() => 2 * k, v => v.length), 42);
+   * const y: Option<string> = None();
+   * assert.equal(y.mapOrElse(() => 2 * k, v => v.length), 42);
    * ```
    *
    * @param def callback to calculate default value
@@ -235,32 +309,32 @@ export class Option<T> implements Match {
   }
 
   /**
-   * Matches option to the received matcher executing the appropriate branch defined in the
-   * received matcher.
+   * Matches option to the received matcher and executes the appropriate branch.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
-   * const x = Some(45);
+   * const x1 = Some(45);
    *
-   * const y = x.match({
+   * const y1 = x1.match({
    *   Some: v => v + 5,
    *   None: () => 10
    * });
    *
-   * assert.equal(y, 50);
+   * assert.equal(y1, 50);
    *
-   * const x = None();
+   * const x2 = None();
    *
-   * const y = a.match({
+   * const y2 = x2.match({
    *   Some: v => v + 5,
    *   None: () => 10
    * });
    *
-   * assert.equal(y, 10);
+   * assert.equal(y2, 10);
    *
-   * const x = Some('foo');
+   * const x3 = Some('foo');
    *
-   * x.match({
+   * x3.match({
    *   Some: v => console.log(v), // prints `foo`
    *   None: () => console.log('nothing')
    * });
@@ -278,13 +352,14 @@ export class Option<T> implements Match {
    * Transforms the `Option<T>` into a `Result<T, E>`, mapping `Some(v)` to `Ok(v)` and `None`
    * to `Err(err)`.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * const x = Some('foo');
    * assert.deepEqual(x.okOr(0), Ok('foo'));
    *
-   * const x: Option<&str> = None;
-   * assert.deepEqual(x.okOr(0), Err(0));
+   * const y: Option<string> = None();
+   * assert.deepEqual(y.okOr(0), Err(0));
    * ```
    *
    * @param err custom error value
@@ -299,13 +374,14 @@ export class Option<T> implements Match {
    * Transforms the `Option<T>` into a `Result<T, E>`, mapping `Some(v)` to `Ok(v)` and `None`
    * to `Err(err())`.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
-   * let x = Some('foo');
+   * const x = Some('foo');
    * assert.deepEqual(x.okOrElse(() => 0), Ok('foo'));
    *
-   * let x: Option<&str> = None;
-   * assert.deepEqual(x.okOrElse(() => 0), Err(0));
+   * const y: Option<string> = None();
+   * assert.deepEqual(y.okOrElse(() => 0), Err(0));
    * ```
    *
    * @param err callback to calculate custom error value
@@ -319,23 +395,24 @@ export class Option<T> implements Match {
   /**
    * Returns `None` if the option is `None`, otherwise returns `optb`.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
-   * const x = Some(2);
-   * const y: Option<string> = None();
-   * assert.deepEqual(x.and(y), None());
+   * const x1 = Some(2);
+   * const y1: Option<string> = None();
+   * assert.deepEqual(x1.and(y1), None());
    *
-   * const x: Option<number> = None();
-   * const y = Some('foo');
-   * assert.deepEqual(x.and(y), None());
+   * const x2: Option<number> = None();
+   * const y2 = Some('foo');
+   * assert.deepEqual(x2.and(y2), None());
    *
-   * const x = Some(2);
-   * const y = Some('foo');
-   * assert.deepEqual(x.and(y), Some('foo'));
+   * const x3 = Some(2);
+   * const y3 = Some('foo');
+   * assert.deepEqual(x3.and(y3), Some('foo'));
    *
-   * const x: Option<number> = None();
-   * const y: Option<string> = None();
-   * assert.deepEqual(x.and(y), None());
+   * const x4: Option<number> = None();
+   * const y4: Option<string> = None();
+   * assert.deepEqual(x4.and(y4), None());
    * ```
    *
    * @param optb another option
@@ -352,7 +429,8 @@ export class Option<T> implements Match {
    *
    * Some languages call this operation flatmap.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * const sq: (x: number): Option<number> = x => Some(x * x);
    * const nope: () => Option<number> = () => None();
@@ -374,23 +452,25 @@ export class Option<T> implements Match {
   /**
    * Returns the option if it contains a value, otherwise returns `optb`.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
-   * const x = Some(2);
-   * const y = None();
-   * assert.deepEqual(x.or(y), Some(2));
+   * const x1 = Some(2);
+   * const y1 = None();
+   * assert.deepEqual(x1.or(y1), Some(2));
    *
-   * const x = None();
-   * const y = Some(100);
-   * assert.deepEqual(x.or(y), Some(100));
+   * const x2 = None();
+   * const y2 = Some(100);
+   * assert.deepEqual(x2.or(y2), Some(100));
    *
-   * const x = Some(2);
-   * const y = Some(100);
-   * assert.deepEqual(x.or(y), Some(2));
+   * const x3 = Some(2);
+   * const y3 = Some(100);
+   * assert.deepEqual(x3.or(y3), Some(2));
    *
-   * const x: Option<number> = None();
-   * const y = None();
-   * assert.deepEqual(x.or(y), None());
+   * const x4: Option<number> = None();
+   * const y4 = None();
+   * assert.deepEqual(x4.or(y4), None());
+   * assert.deepEqual(x4.or(y4), None());
    * ```
    *
    * @param optb another option
@@ -404,13 +484,14 @@ export class Option<T> implements Match {
   /**
    * Returns the option if it contains a value, otherwise calls `cb` and returns the result.
    *
-   * #### Examples:
+   * #### Examples
+   * Basic usage:
    * ```ts
    * const nobody: () => Option<string> = () => None();
-   * const vikings: () => Option<string> = () => Some("vikings");
+   * const vikings: () => Option<string> = () => Some('vikings');
    *
-   * assert.deepEqual(Some("barbarians").orElse(vikings), Some("barbarians"));
-   * assert.deepEqual(None().orElse(vikings), Some("vikings"));
+   * assert.deepEqual(Some('barbarians').orElse(vikings), Some('barbarians'));
+   * assert.deepEqual(None().orElse(vikings), Some('vikings'));
    * assert.deepEqual(None().orElse(nobody), None);
    * ```
    *
