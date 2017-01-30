@@ -28,7 +28,7 @@ Import package in your code and you are ready:
 import {Some, Option} from 'rustils';
 
 const option: Option<number> = Some(10);
-assert.equal(option.andThen(v => v + 50).unwrap(), 60);
+assert.equal(option.map(v => v + 50).unwrap(), 60);
 ```
 You can see detailed using in [API reference](https://lodin.github.io/rustils/).
 
@@ -41,7 +41,7 @@ var Some = rustils.Some;
 var None = rustils.None;
 
 var option = Some(10);
-assert.equal(option.andThen(function(v) { return v + 50 }).unwrap(), 60);
+assert.equal(option.map(function(v) { return v + 50; }).unwrap(), 60);
 ```
 
 ## About project
