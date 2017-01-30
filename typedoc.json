@@ -1,7 +1,7 @@
 {
   "mode": "modules",
   "out": "docs",
-  "theme": "node_modules/ui-router-typedoc-themes/bin/default",
+  "theme": "default",
   "ignoreCompilerErrors": "true",
   "target": "ES5",
   "moduleResolution": "node",

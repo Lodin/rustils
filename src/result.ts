@@ -50,6 +50,8 @@
  * // Consume the result and return the contents with `unwrap`.
  * const finalAwesomeResult = goodResult3.unwrap();
  * ```
+ *
+ * @module result
  */ /** for typedoc */
 
 import {Some, None, Option} from './option';
@@ -104,7 +106,7 @@ export const Err = <E>(error: E) => new Result<any, E>(null, error);
 /**
  * `Result` is a type that represents either success (`Ok`) or failure (`Err`).
  *
- * See the [["result"]] module documentation for details.
+ * See the [[result]] module documentation for details.
  */
 export class Result<T, E> implements Match {
   public constructor(protected value: T, protected error: E) {}

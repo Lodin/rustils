@@ -1,3 +1,7 @@
+/**
+ * @module match
+ */ /** for typedoc */
+
 export interface Match {
   /**
    * Matches instance to the received matcher and executes appropriate branch.

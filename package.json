@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "docs": "typedoc --options typedoc.json --exclude **/*.spec.ts src",
+    "docs": "typedoc --options typedoc.json --exclude \"**/*+(spec|index).ts\" src",
     "prepublish": "npm run build",
     "test": "nyc --require ts-node/register ./node_modules/.bin/_mocha"
   },
@@ -33,6 +33,7 @@
     "nyc": "^10.1.2",
     "ts-node": "^2.0.0",
     "typedoc": "^0.5.5",
+    "typedoc-plugin-external-module-name": "^1.0.8",
     "typescript": "^2.2.0-dev.20170130",
     "ui-router-typedoc-themes": "^1.0.2"
   },

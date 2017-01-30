@@ -65,6 +65,8 @@
  *   None: () => console.log('there are no animals :(');
  * });
  * ```
+ *
+ * @module option
  */ /** for typedoc */
 
 import {Match} from './match';
@@ -112,7 +114,7 @@ export const Some = <T>(value: T) => new Option<T>(value);
 export const None = () => new Option<any>(null);
 
 /**
- * The `Option` type. See the [["option"]] module documentation for more.
+ * The `Option` type. See the [[option]] module documentation for more.
  */
 export class Option<T> implements Match {
   constructor(protected value: T) {}
