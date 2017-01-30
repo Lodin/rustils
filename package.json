@@ -4,9 +4,10 @@
   "description": "Port of powerful Rust utils to JavaScript",
   "main": "dist/index.js",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
     "docs": "typedoc --options typedoc.json --exclude **/*.spec.ts src",
-    "nyc": "nyc --help",
-    "test": "cross-env TS_NODE_CACHE_DIRECTORY=./.cache/ts-node nyc --require ts-node/register ./node_modules/.bin/_mocha"
+    "prepublish": "npm run build",
+    "test": "nyc --require ts-node/register ./node_modules/.bin/_mocha"
   },
   "repository": {
     "type": "git",
@@ -28,12 +29,11 @@
     "@types/chai": "^3.4.34",
     "@types/mocha": "^2.2.38",
     "chai": "^3.5.0",
-    "cross-env": "^3.1.4",
     "mocha": "^3.2.0",
     "nyc": "^10.1.2",
     "ts-node": "^2.0.0",
     "typedoc": "^0.5.5",
-    "typescript": "^2.2.0-dev.20170126",
+    "typescript": "^2.2.0-dev.20170130",
     "ui-router-typedoc-themes": "^1.0.2"
   },
   "nyc": {
