@@ -83,7 +83,7 @@ export type ResultMatcher<T, E, U> = {
  * @param value
  * @constructor
  */
-export const Ok = <T>(value: T) => new Result<T, any>(value, null);
+export const Ok = <T>(value: T) => new Result<T, any>(value, null, true);
 
 /**
  * Creates a [[Result]] containing error value.
@@ -101,7 +101,7 @@ export const Ok = <T>(value: T) => new Result<T, any>(value, null);
  * @param error
  * @constructor
  */
-export const Err = <E>(error: E) => new Result<any, E>(null, error);
+export const Err = <E>(error: E) => new Result<any, E>(null, error, false);
 
 /**
  * `Result` is a type that represents either success (`Ok`) or failure (`Err`).
@@ -109,7 +109,7 @@ export const Err = <E>(error: E) => new Result<any, E>(null, error);
  * See the [[result]] module documentation for details.
  */
 export class Result<T, E> implements Match {
-  public constructor(protected value: T, protected error: E) {}
+  public constructor(protected value: T, protected error: E, protected hasOk: boolean) {}
 
   /**
    * Converts from `Result<T, E>` to [[Option]]<T>.
@@ -127,7 +127,7 @@ export class Result<T, E> implements Match {
    * ```
    */
   public get ok(): Option<T> {
-    return this.isOk
+    return this.hasOk
       ? Some(this.value)
       : None();
   }
@@ -149,7 +149,7 @@ export class Result<T, E> implements Match {
    * ```
    */
   public get err(): Option<E> {
-    return this.isErr
+    return !this.hasOk
       ? Some(this.error)
       : None();
   }
@@ -168,7 +168,7 @@ export class Result<T, E> implements Match {
    * ```
    */
   public get isOk(): boolean {
-    return !!this.value;
+    return this.hasOk;
   }
 
   /**
@@ -185,7 +185,7 @@ export class Result<T, E> implements Match {
    * ```
    */
   public get isErr(): boolean {
-    return !!this.error;
+    return !this.hasOk;
   }
 
   /**
@@ -217,7 +217,7 @@ export class Result<T, E> implements Match {
    * @param cb callback to map wrapped value
    */
   public map<U>(cb: (value: T) => U): Result<U, E> {
-    return this.isOk
+    return this.hasOk
       ? Ok(cb(this.value))
       : <Result<U, E>><any>this; // Err(this.error)
   }
@@ -243,7 +243,7 @@ export class Result<T, E> implements Match {
    * @param cb callback to map error value
    */
   public mapErr<F>(cb: (error: E) => F): Result<T, F> {
-    return this.isOk
+    return this.hasOk
       ? <Result<T, F>><any>this // Ok(this.value)
       : Err(cb(this.error));
   }
@@ -283,7 +283,7 @@ export class Result<T, E> implements Match {
    * @param matcher an object to perform pattern matching
    */
   public match<U>(matcher: ResultMatcher<T, E, U>): U {
-    return this.isOk
+    return this.hasOk
       ? matcher.Ok(this.value)
       : matcher.Err(this.error);
   }
@@ -314,7 +314,7 @@ export class Result<T, E> implements Match {
    * @param res another result
    */
   public and<U>(res: Result<U, E>): Result<U, E> {
-    return this.isOk
+    return this.hasOk
       ? res
       : <Result<U, E>><any>this; // Err(this.error)
   }
@@ -340,7 +340,7 @@ export class Result<T, E> implements Match {
    * @param cb callback to map wrapped value
    */
   public andThen<U>(cb: (value: T) => Result<U, E>): Result<U, E> {
-    return this.isOk
+    return this.hasOk
       ? cb(this.value)
       : <Result<U, E>><any>this;
   }
@@ -371,7 +371,7 @@ export class Result<T, E> implements Match {
    * @param res default result
    */
   public or<F>(res: Result<T, F>): Result<T, F> {
-    return this.isOk
+    return this.hasOk
       ? <Result<T, F>><any>this
       : res;
   }
@@ -397,7 +397,7 @@ export class Result<T, E> implements Match {
    * @param cb callback to calculate default result
    */
   public orElse<F>(cb: (error: E) => Result<T, F>): Result<T, F> {
-    return this.isOk
+    return this.hasOk
       ? <Result<T, F>><any>this
       : cb(this.error);
   }
@@ -419,7 +419,7 @@ export class Result<T, E> implements Match {
    * @param optb default
    */
   public unwrapOr(optb: T): T {
-    return this.isOk
+    return this.hasOk
       ? this.value
       : optb;
   }
@@ -440,7 +440,7 @@ export class Result<T, E> implements Match {
    * @param cb callback to calculate default value
    */
   public unwrapOrElse(cb: (error: E) => T) {
-    return this.isOk
+    return this.hasOk
       ? this.value
       : cb(this.error);
   }
@@ -463,7 +463,7 @@ export class Result<T, E> implements Match {
    * ```
    */
   public unwrap(): T {
-    if (this.isOk) {
+    if (this.hasOk) {
       return this.value;
     }
 
@@ -513,7 +513,7 @@ export class Result<T, E> implements Match {
    * @param msg additional custom error message
    */
   public expect(msg: string): T {
-    if (this.isOk) {
+    if (this.hasOk) {
       return this.value;
     }
 

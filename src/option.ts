@@ -95,7 +95,7 @@ export type OptionMatcher<T, U> = {
  * @param value a value [[Option]] will wrap over.
  * @constructor
  */
-export const Some = <T>(value: T) => new Option<T>(value);
+export const Some = <T>(value: T) => new Option<T>(value, true);
 
 /**
  * Creates an [[Option]] containing no value.
@@ -111,13 +111,13 @@ export const Some = <T>(value: T) => new Option<T>(value);
  * ```
  * @constructor
  */
-export const None = () => new Option<any>(null);
+export const None = () => new Option<any>(null, false);
 
 /**
  * The `Option` type. See the [[option]] module documentation for more.
  */
 export class Option<T> implements Match {
-  constructor(protected value: T) {}
+  constructor(protected value: T, protected hasSome: boolean) {}
 
   /**
    * Gets `true` if the option is a `Some` value.
@@ -133,7 +133,7 @@ export class Option<T> implements Match {
    * ```
    */
   public get isSome(): boolean {
-    return !!this.value;
+    return this.hasSome;
   }
 
   /**
@@ -150,7 +150,7 @@ export class Option<T> implements Match {
    * ```
    */
   public get isNone(): boolean {
-    return !this.value;
+    return !this.hasSome;
   }
 
   /**
@@ -172,7 +172,7 @@ export class Option<T> implements Match {
    * @param msg custom error message
    */
   public expect(msg: string): T {
-    if (this.isSome) {
+    if (this.hasSome) {
       return this.value;
     }
 
@@ -199,7 +199,7 @@ export class Option<T> implements Match {
    * Throws an error if the self value equals `None`.
    */
   public unwrap(): T {
-    if (this.isSome) {
+    if (this.hasSome) {
       return this.value;
     }
 
@@ -219,7 +219,7 @@ export class Option<T> implements Match {
    * @param def default value
    */
   public unwrapOr(def: T): T {
-    return this.isSome
+    return this.hasSome
       ? this.value
       : def;
   }
@@ -238,7 +238,7 @@ export class Option<T> implements Match {
    * @param cb callback to calculate default value
    */
   public unwrapOrElse(cb: () => T): T {
-    return this.isSome
+    return this.hasSome
       ? this.value
       : cb();
   }
@@ -259,7 +259,7 @@ export class Option<T> implements Match {
    * @param cb callback to map wrapped value
    */
   public map<U>(cb: (value: T) => U): Option<U> {
-    return this.isSome
+    return this.hasSome
       ? Some(cb(this.value))
       : <Option<U>><any>this; // None()
   }
@@ -281,7 +281,7 @@ export class Option<T> implements Match {
    * @param cb callback to map wrapped value
    */
   public mapOr<U>(def: U, cb: (value: T) => U): U {
-    return this.isSome
+    return this.hasSome
       ? cb(this.value)
       : def;
   }
@@ -305,7 +305,7 @@ export class Option<T> implements Match {
    * @param cb callback to map wrapped value
    */
   public mapOrElse<U>(def: () => U, cb: (value: T) => U): U {
-    return this.isSome
+    return this.hasSome
       ? cb(this.value)
       : def();
   }
@@ -345,7 +345,7 @@ export class Option<T> implements Match {
    * @param matcher an object to perform pattern matching
    */
   public match<U>(matcher: OptionMatcher<T, U>): U {
-    return this.isSome
+    return this.hasSome
       ? matcher.Some(this.value)
       : matcher.None();
   }
@@ -367,7 +367,7 @@ export class Option<T> implements Match {
    * @param err custom error value
    */
   public okOr<E>(err: E): Result<T, E> {
-    return this.isSome
+    return this.hasSome
       ? Ok(this.value)
       : Err(err);
   }
@@ -389,7 +389,7 @@ export class Option<T> implements Match {
    * @param err callback to calculate custom error value
    */
   public okOrElse<E>(err: () => E): Result<T, E> {
-    return this.isSome
+    return this.hasSome
       ? Ok(this.value)
       : Err(err());
   }
@@ -420,7 +420,7 @@ export class Option<T> implements Match {
    * @param optb another option
    */
   public and<U>(optb: Option<U>): Option<U> {
-    return this.isSome
+    return this.hasSome
       ? optb
       : <Option<U>><any>this; // None()
   }
@@ -446,7 +446,7 @@ export class Option<T> implements Match {
    * @param cb callback to map wrapped value
    */
   public andThen<U>(cb: (value: T) => Option<U>): Option<U> {
-    return this.isSome
+    return this.hasSome
       ? cb(this.value)
       : <Option<U>><any>this; // None()
   }
@@ -478,7 +478,7 @@ export class Option<T> implements Match {
    * @param optb another option
    */
   public or(optb: Option<T>): Option<T> {
-    return this.isSome
+    return this.hasSome
       ? this
       : optb;
   }
@@ -500,7 +500,7 @@ export class Option<T> implements Match {
    * @param cb callback to calculate default option
    */
   public orElse(cb: () => Option<T>): Option<T> {
-    return this.isSome
+    return this.hasSome
       ? this
       : cb();
   }
