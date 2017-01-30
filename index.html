@@ -65,15 +65,21 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<h1 id="rustils">rustils</h1>
+				<p><a href="https://www.npmjs.com/package/rustils"><img src="https://img.shields.io/npm/v/rustils.svg" alt="Latest Stable Version"></a>
+					<a href="./LICENSE"><img src="https://img.shields.io/npm/l/rustils.svg" alt="License"></a>
+				<a href="https://travis-ci.org/Lodin/rustils"><img src="https://img.shields.io/travis/Lodin/rustils/master.svg" alt="Build Status"></a></p>
+				<p><a href="https://codecov.io/gh/Lodin/rustils"><img src="https://img.shields.io/codecov/c/github/Lodin/rustils/master.svg" alt="Test Coverage"></a></p>
 				<p>A port of some powerful Rust abstractions to JavaScript. By now it contains following modules:</p>
 				<ul>
-					<li><strong>Option</strong> (<a href="https://doc.rust-lang.org/std/option/index.html">rust doc</a>) - an abstraction designed to
+					<li><strong><a href="https://lodin.github.io/rustils/modules/option.html">Option</a></strong> (<a href="https://doc.rust-lang.org/std/option/index.html">rust doc</a>) - an abstraction designed to
 						handle operations with <code>null</code> in the functional style, an implementation of functional monad
 					<code>Maybe</code>.</li>
-					<li><strong>Result</strong> (<a href="https://doc.rust-lang.org/std/result/">rust doc</a>) - an abstraction that is able to
+					<li><strong><a href="https://lodin.github.io/rustils/modules/result.html">Result</a></strong> (<a href="https://doc.rust-lang.org/std/result/">rust doc</a>) - an abstraction that is able to
 						supplement - or even replace, - the standard exception scheme. Depending on function result it
 					may wrap success or error value and is able to be processed in accordance with this result.</li>
 				</ul>
+				<h2 id="documentation">Documentation</h2>
+				<p>Complete project documentation can be found <a href="https://lodin.github.io/rustils/">here</a>.</p>
 				<h2 id="installation">Installation</h2>
 				<p>To install <code>rustils</code> run the following command in the console:</p>
 				<pre><code class="lang-bash">$ npm i --save rustils
@@ -85,7 +91,7 @@
 <span class="hljs-keyword">const</span> option: Option&lt;<span class="hljs-built_in">number</span>&gt; = Some(<span class="hljs-number">10</span>);
 assert.equal(option.andThen(v =&gt; v + <span class="hljs-number">50</span>).unwrap(), <span class="hljs-number">60</span>);
 </code></pre>
-				<p>You can see detailed using in API reference.</p>
+				<p>You can see detailed using in <a href="https://lodin.github.io/rustils/">API reference</a>.</p>
 				<h3 id="javascript-usage">JavaScript usage</h3>
 				<p>As you can see, all examples is written in Typescript here. But if you want to use this library
 				with JavaScript, there is no problem. Just throw out all the types and use the package.</p>
