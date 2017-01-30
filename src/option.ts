@@ -494,7 +494,7 @@ export class Option<T> implements Match {
    *
    * assert.deepEqual(Some('barbarians').orElse(vikings), Some('barbarians'));
    * assert.deepEqual(None().orElse(vikings), Some('vikings'));
-   * assert.deepEqual(None().orElse(nobody), None);
+   * assert.deepEqual(None().orElse(nobody), None());
    * ```
    *
    * @param cb callback to calculate default option

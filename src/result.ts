@@ -120,10 +120,10 @@ export class Result<T, E> implements Match {
    * Basic usage:
    * ```ts
    * const x: Result<number, string> = Ok(2);
-   * assert.equal(x.ok, Some(2));
+   * assert.deepEqual(x.ok, Some(2));
    *
    * const x: Result<number, string> = Err('Nothing here');
-   * assert.equal(x.ok, None());
+   * assert.deepEqual(x.ok, None());
    * ```
    */
   public get ok(): Option<T> {
@@ -142,10 +142,10 @@ export class Result<T, E> implements Match {
    * Basic usage:
    * ```ts
    * const x: Result<number, string> = Ok(2);
-   * assert.equal(x.err, None());
+   * assert.deepEqual(x.err, None());
    *
    * const x: Result<number, string> = Err('Nothing here');
-   * assert.equal(x.err, Some('Nothing here'));
+   * assert.deepEqual(x.err, Some('Nothing here'));
    * ```
    */
   public get err(): Option<E> {
@@ -234,10 +234,10 @@ export class Result<T, E> implements Match {
    * const stringify = (x: number) => `error code: ${x}`;
    *
    * const x: Result<number, number> = Ok(2);
-   * assert.equal(x.mapErr(stringify), Ok(2));
+   * assert.deepEqual(x.mapErr(stringify), Ok(2));
 
    * const y: Result<number, number> = Err(13);
-   * assert.equal(y.mapErr(stringify), Err('error code: 13'));
+   * assert.deepEqual(y.mapErr(stringify), Err('error code: 13'));
    * ```
    *
    * @param cb callback to map error value
@@ -300,15 +300,15 @@ export class Result<T, E> implements Match {
    *
    * const x2: Result<number, string> = Err('early error');
    * const y2: Result<string, string> = Ok('foo');
-   * assert.equal(x2.and(y2), Err('early error'));
+   * assert.deepEqual(x2.and(y2), Err('early error'));
    *
    * const x3: Result<number, string> = Err('not a 2');
    * const y3: Result<string, string> = Err('late error');
-   * assert.equal(x3.and(y3), Err('not a 2'));
+   * assert.deepEqual(x3.and(y3), Err('not a 2'));
    *
    * const x4: Result<number, string> = Ok(2);
    * const y4: Result<string, string> = Ok('different result type');
-   * assert.equal(x4.and(y4), Ok('different result type'));
+   * assert.deepEqual(x4.and(y4), Ok('different result type'));
    * ```
    *
    * @param res another result
