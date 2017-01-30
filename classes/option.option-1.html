@@ -111,6 +111,7 @@
 						<section class="tsd-index-section tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="option.option-1.html#hassome" class="tsd-kind-icon">has<wbr>Some</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="option.option-1.html#value" class="tsd-kind-icon">value</a></li>
 							</ul>
 						</section>
@@ -149,19 +150,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Option<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="option.option-1.html" class="tsd-signature-type">Option</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Option<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, hasSome<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="option.option-1.html" class="tsd-signature-type">Option</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L119">option.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L119">option.ts:119</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>value: <span class="tsd-signature-type">T</span></h5>
+								</li>
+								<li>
+									<h5>hasSome: <span class="tsd-signature-type">boolean</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="option.option-1.html" class="tsd-signature-type">Option</a></h4>
@@ -172,12 +176,22 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="hassome" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> has<wbr>Some</h3>
+					<div class="tsd-signature tsd-kind-icon">has<wbr>Some<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L120">option.ts:120</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="value" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> value</h3>
 					<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L120">option.ts:120</a></li>
+							<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L120">option.ts:120</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -194,7 +208,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L152">option.ts:152</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L152">option.ts:152</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -224,7 +238,7 @@ assert.equal(y.isNone, <span class="hljs-literal">true</span>);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L135">option.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L135">option.ts:135</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -257,7 +271,7 @@ assert.equal(y.isSome, <span class="hljs-literal">false</span>);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L422">option.ts:422</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L422">option.ts:422</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -312,7 +326,7 @@ assert.deepEqual(x4.and(y4), None());
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L448">option.ts:448</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L448">option.ts:448</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -379,7 +393,7 @@ assert.deepEqual(None().andThen(sq).andThen(sq), None());
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L174">option.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L174">option.ts:174</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -420,7 +434,7 @@ y.expect(<span class="hljs-string">'the world is ending'</span>); <span class="h
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L261">option.ts:261</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L261">option.ts:261</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -483,7 +497,7 @@ assert.deepEqual(maybeSomeLength, Some(<span class="hljs-number">13</span>));
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L283">option.ts:283</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L283">option.ts:283</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -552,7 +566,7 @@ assert.equal(y.mapOr(<span class="hljs-number">42</span>, v =&gt; v.length), <sp
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L307">option.ts:307</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L307">option.ts:307</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -635,7 +649,7 @@ assert.equal(y.mapOrElse(() =&gt; <span class="hljs-number">2</span> * k, v =&gt
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L347">option.ts:347</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L347">option.ts:347</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -699,7 +713,7 @@ x3.match({
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L369">option.ts:369</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L369">option.ts:369</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -745,7 +759,7 @@ assert.deepEqual(y.okOr(<span class="hljs-number">0</span>), Err(<span class="hl
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L391">option.ts:391</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L391">option.ts:391</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -803,7 +817,7 @@ assert.deepEqual(y.okOrElse(() =&gt; <span class="hljs-number">0</span>), Err(<s
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L480">option.ts:480</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L480">option.ts:480</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -853,7 +867,7 @@ assert.deepEqual(x4.or(y4), None());
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L502">option.ts:502</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L502">option.ts:502</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -867,7 +881,7 @@ assert.deepEqual(x4.or(y4), None());
 
 assert.deepEqual(Some(<span class="hljs-string">'barbarians'</span>).orElse(vikings), Some(<span class="hljs-string">'barbarians'</span>));
 assert.deepEqual(None().orElse(vikings), Some(<span class="hljs-string">'vikings'</span>));
-assert.deepEqual(None().orElse(nobody), None);
+assert.deepEqual(None().orElse(nobody), None());
 </code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -905,7 +919,7 @@ assert.deepEqual(None().orElse(nobody), None);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L201">option.ts:201</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L201">option.ts:201</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -939,7 +953,7 @@ assert.equal(y.unwrap(), <span class="hljs-string">'air'</span>); <span class="h
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L221">option.ts:221</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L221">option.ts:221</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -975,7 +989,7 @@ assert.equal(None().unwrapOr(<span class="hljs-string">'bike'</span>), <span cla
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/option.ts#L240">option.ts:240</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/option.ts#L240">option.ts:240</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1042,6 +1056,9 @@ assert.equal(None().unwrapOrElse(() =&gt; <span class="hljs-number">2</span> * k
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="option.option-1.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="option.option-1.html#hassome" class="tsd-kind-icon">has<wbr>Some</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="option.option-1.html#value" class="tsd-kind-icon">value</a>

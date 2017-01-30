@@ -116,6 +116,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="result.result-1.html#error" class="tsd-kind-icon">error</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="result.result-1.html#hasok" class="tsd-kind-icon">has<wbr>Ok</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="result.result-1.html#value" class="tsd-kind-icon">value</a></li>
 							</ul>
 						</section>
@@ -154,13 +155,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Result<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.result-1.html" class="tsd-signature-type">Result</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Result<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span>, hasOk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.result-1.html" class="tsd-signature-type">Result</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L111">result.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L111">result.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -170,6 +171,9 @@
 								</li>
 								<li>
 									<h5>error: <span class="tsd-signature-type">E</span></h5>
+								</li>
+								<li>
+									<h5>hasOk: <span class="tsd-signature-type">boolean</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="result.result-1.html" class="tsd-signature-type">Result</a></h4>
@@ -185,7 +189,17 @@
 					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">E</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L112">result.ts:112</a></li>
+							<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L112">result.ts:112</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="hasok" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> has<wbr>Ok</h3>
+					<div class="tsd-signature tsd-kind-icon">has<wbr>Ok<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L112">result.ts:112</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -195,7 +209,7 @@
 					<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L112">result.ts:112</a></li>
+							<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L112">result.ts:112</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -212,7 +226,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L151">result.ts:151</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L151">result.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -224,10 +238,10 @@
 								<h4 id="examples-">Examples:</h4>
 								<p>Basic usage:</p>
 								<pre><code class="lang-ts"><span class="hljs-keyword">const</span> x: Result&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>&gt; = Ok(<span class="hljs-number">2</span>);
-assert.equal(x.err, None());
+assert.deepEqual(x.err, None());
 
 <span class="hljs-keyword">const</span> x: Result&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>&gt; = Err(<span class="hljs-string">'Nothing here'</span>);
-assert.equal(x.err, Some(<span class="hljs-string">'Nothing here'</span>));
+assert.deepEqual(x.err, Some(<span class="hljs-string">'Nothing here'</span>));
 </code></pre>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="option.option-1.html" class="tsd-signature-type">Option</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -244,7 +258,7 @@ assert.equal(x.err, Some(<span class="hljs-string">'Nothing here'</span>));
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L187">result.ts:187</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L187">result.ts:187</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -274,7 +288,7 @@ assert.equal(x.isErr, <span class="hljs-literal">true</span>);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L170">result.ts:170</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L170">result.ts:170</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -304,7 +318,7 @@ assert.equal(x.isOk, <span class="hljs-literal">false</span>);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L129">result.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L129">result.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -315,10 +329,10 @@ assert.equal(x.isOk, <span class="hljs-literal">false</span>);
 								<h4 id="examples-">Examples:</h4>
 								<p>Basic usage:</p>
 								<pre><code class="lang-ts"><span class="hljs-keyword">const</span> x: Result&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>&gt; = Ok(<span class="hljs-number">2</span>);
-assert.equal(x.ok, Some(<span class="hljs-number">2</span>));
+assert.deepEqual(x.ok, Some(<span class="hljs-number">2</span>));
 
 <span class="hljs-keyword">const</span> x: Result&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>&gt; = Err(<span class="hljs-string">'Nothing here'</span>);
-assert.equal(x.ok, None());
+assert.deepEqual(x.ok, None());
 </code></pre>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="option.option-1.html" class="tsd-signature-type">Option</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -338,7 +352,7 @@ assert.equal(x.ok, None());
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L316">result.ts:316</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L316">result.ts:316</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -353,15 +367,15 @@ assert_eq!(x1.and(y1), Err(<span class="hljs-string">'late error'</span>));
 
 <span class="hljs-keyword">const</span> x2: Result&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>&gt; = Err(<span class="hljs-string">'early error'</span>);
 <span class="hljs-keyword">const</span> y2: Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Ok(<span class="hljs-string">'foo'</span>);
-assert.equal(x2.and(y2), Err(<span class="hljs-string">'early error'</span>));
+assert.deepEqual(x2.and(y2), Err(<span class="hljs-string">'early error'</span>));
 
 <span class="hljs-keyword">const</span> x3: Result&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>&gt; = Err(<span class="hljs-string">'not a 2'</span>);
 <span class="hljs-keyword">const</span> y3: Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Err(<span class="hljs-string">'late error'</span>);
-assert.equal(x3.and(y3), Err(<span class="hljs-string">'not a 2'</span>));
+assert.deepEqual(x3.and(y3), Err(<span class="hljs-string">'not a 2'</span>));
 
 <span class="hljs-keyword">const</span> x4: Result&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">string</span>&gt; = Ok(<span class="hljs-number">2</span>);
 <span class="hljs-keyword">const</span> y4: Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Ok(<span class="hljs-string">'different result type'</span>);
-assert.equal(x4.and(y4), Ok(<span class="hljs-string">'different result type'</span>));
+assert.deepEqual(x4.and(y4), Ok(<span class="hljs-string">'different result type'</span>));
 </code></pre>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -393,7 +407,7 @@ assert.equal(x4.and(y4), Ok(<span class="hljs-string">'different result type'</s
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L342">result.ts:342</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L342">result.ts:342</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -460,7 +474,7 @@ assert.deepEqual(Err(<span class="hljs-number">3</span>).andThen(sq).andThen(sq)
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L515">result.ts:515</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L515">result.ts:515</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -499,7 +513,7 @@ x.expect(<span class="hljs-string">'Testing expect'</span>); <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L219">result.ts:219</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L219">result.ts:219</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -574,7 +588,7 @@ x.expect(<span class="hljs-string">'Testing expect'</span>); <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L245">result.ts:245</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L245">result.ts:245</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -588,10 +602,10 @@ x.expect(<span class="hljs-string">'Testing expect'</span>); <span class="hljs-c
 								<pre><code class="lang-ts"><span class="hljs-keyword">const</span> stringify = (x: <span class="hljs-built_in">number</span>) =&gt; <span class="hljs-string">`error code: <span class="hljs-subst">${x}</span>`</span>;
 
 <span class="hljs-keyword">const</span> x: Result&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>&gt; = Ok(<span class="hljs-number">2</span>);
-assert.equal(x.mapErr(stringify), Ok(<span class="hljs-number">2</span>));
+assert.deepEqual(x.mapErr(stringify), Ok(<span class="hljs-number">2</span>));
 
 <span class="hljs-keyword">const</span> y: Result&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>&gt; = Err(<span class="hljs-number">13</span>);
-assert.equal(y.mapErr(stringify), Err(<span class="hljs-string">'error code: 13'</span>));
+assert.deepEqual(y.mapErr(stringify), Err(<span class="hljs-string">'error code: 13'</span>));
 </code></pre>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -641,7 +655,7 @@ assert.equal(y.mapErr(stringify), Err(<span class="hljs-string">'error code: 13'
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L285">result.ts:285</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L285">result.ts:285</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -705,7 +719,7 @@ x3.match({
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L373">result.ts:373</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L373">result.ts:373</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -760,7 +774,7 @@ assert.deepEqual(x4.or(y4), Ok(<span class="hljs-number">2</span>));
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L399">result.ts:399</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L399">result.ts:399</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -827,7 +841,7 @@ assert.deepEqual(Err(<span class="hljs-number">3</span>).orElse(err).orElse(err)
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L465">result.ts:465</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L465">result.ts:465</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -859,7 +873,7 @@ x.unwrap(); <span class="hljs-comment">// fails with `emergency failure`</span>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L491">result.ts:491</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L491">result.ts:491</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -892,7 +906,7 @@ assert.equal(x.unwrapErr(), <span class="hljs-string">'emergency failure'</span>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L421">result.ts:421</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L421">result.ts:421</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -932,7 +946,7 @@ assert.equal(y.unwrapOr(optb), optb);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/69c0556/src/result.ts#L442">result.ts:442</a></li>
+									<li>Defined in <a href="https://github.com/Lodin/rustils/blob/f7393f8/src/result.ts#L442">result.ts:442</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1010,6 +1024,9 @@ assert.equal(Err(<span class="hljs-string">"foo"</span>).unwrapOrElse(count), <s
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="result.result-1.html#error" class="tsd-kind-icon">error</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="result.result-1.html#hasok" class="tsd-kind-icon">has<wbr>Ok</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="result.result-1.html#value" class="tsd-kind-icon">value</a>
