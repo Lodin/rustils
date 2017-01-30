@@ -29,6 +29,7 @@
     "@types/chai": "^3.4.34",
     "@types/mocha": "^2.2.38",
     "chai": "^3.5.0",
+    "codecov": "^1.0.1",
     "mocha": "^3.2.0",
     "nyc": "^10.1.2",
     "ts-node": "^2.0.0",
@@ -53,7 +54,8 @@
       "ts-node/register"
     ],
     "reporter": [
-      "html"
+      "html",
+      "lcov"
     ],
     "sourceMap": true,
     "instrument": true
