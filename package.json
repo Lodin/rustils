@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lodin/rust-types.git"
+    "url": "git+https://github.com/Lodin/rustils.git"
   },
   "keywords": [
     "rust",
@@ -22,9 +22,9 @@
   "author": "Vlad Rindevich",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Lodin/rust-types/issues"
+    "url": "https://github.com/Lodin/rustils/issues"
   },
-  "homepage": "https://github.com/Lodin/rust-types#readme",
+  "homepage": "https://github.com/Lodin/rustils#readme",
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/mocha": "^2.2.38",
