@@ -1,6 +1,6 @@
 {
   "name": "rustils",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Port of powerful Rust utils to JavaScript",
   "main": "dist/index.js",
   "scripts": {

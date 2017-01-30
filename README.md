@@ -1,5 +1,11 @@
 # rustils
 
+[![Latest Stable Version](https://img.shields.io/npm/v/rustils.svg)](https://www.npmjs.com/package/rustils)
+[![License](https://img.shields.io/npm/l/rustils.svg)](./LICENSE)
+[![Build Status](https://img.shields.io/travis/Lodin/rustils/master.svg)](https://travis-ci.org/Lodin/rustils)
+
+[![Test Coverage](https://img.shields.io/codecov/c/github/Lodin/rustils/master.svg)](https://codecov.io/gh/Lodin/rustils)
+
 A port of some powerful Rust abstractions to JavaScript. By now it contains following modules:
 * **[Option](https://lodin.github.io/rustils/modules/option.html)** ([rust doc](https://doc.rust-lang.org/std/option/index.html)) - an abstraction designed to
 handle operations with `null` in the functional style, an implementation of functional monad 
