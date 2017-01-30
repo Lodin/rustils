@@ -195,7 +195,7 @@ export class Result<T, E> implements Match {
    * This function can be used to compose the results of two functions.
    *
    * #### Examples
-   * Basic usage:
+   * Print the numbers on each line of a string multiplied by two.
    * ```ts
    * let line = '1\n2\n3\n4\n';
    *
@@ -207,7 +207,7 @@ export class Result<T, E> implements Match {
    * };
    *
    * for (const num of line.split('\n')) {
-   *   parse(num).match({
+   *   parse(num).map(i => i * 2).match({
    *     Ok: v => console.log(v),
    *     Err: () => {}
    *   });
